@@ -47,10 +47,7 @@ class VoteRepository implements VoteRepositoryInterface
             return new \Exception('Enquete não encontrada / inválida', 422);
         }
 
-
         $aVoteResult = [];
-        $aVoteResult['total_votos'] = $votes->count();
-
         foreach ($votes as $vote) {
             if (array_key_exists($vote->name_voted, $aVoteResult)) {
                 $voto = $aVoteResult[$vote->name_voted];
@@ -65,7 +62,10 @@ class VoteRepository implements VoteRepositoryInterface
             }
         }
 
-        return array_values($aVoteResult);
+        array_values($aVoteResult);
+        $aVoteResult['total_votos'] =  $votes->count();
+
+        return $aVoteResult;
 
     }
 }
